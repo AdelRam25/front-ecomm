@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import axios from "axios"; 
+import axios from "axios";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ export default function Contact() {
         {}
       );
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         setResponseMessage("Message envoyé avec succès !");
         setFormData({ nom: "", prenom: "", message: "", email: "" }); // Clear form
       } else {
@@ -81,7 +81,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Entrez votre nom ..."
                     required
-                    className="w-full p-2 border text-black border-gray-300 rounded-md shadow-sm"
+                    className="w-full p-2 border text-black bg-[#1E1E1E] border-gray-300 rounded-md shadow-sm"
                   />
                 </div>
 
@@ -101,7 +101,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Entrez votre prenom ..."
                     required
-                    className="w-full p-2 border text-black border-gray-300 rounded-md shadow-sm"
+                    className="w-full p-2 border text-black bg-[#1E1E1E] border-gray-300 rounded-md shadow-sm"
                   />
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Entrez votre Email ..."
                   required
-                  className="w-full p-2 border text-black border-gray-300 rounded-md shadow-sm"
+                  className="w-full p-2 border text-black bg-[#1E1E1E] border-gray-300 rounded-md shadow-sm"
                 />
               </div>
 
@@ -141,17 +141,31 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Entrez votre message ..."
                   required
-                  className="w-full p-3 border text-black border-gray-300 rounded-md shadow-sm h-52"
+                  className="w-full p-3 border text-black bg-[#1E1E1E] border-gray-300 rounded-md shadow-sm h-52"
                 />
               </div>
+
+              
 
               {/* Button */}
               <button
                 type="submit"
-                className="m-5 bg-transparent text-white border-2 border-gray-500 py-2 px-6 rounded-lg hover:bg-[#CCAC86] hover:text-black transition duration-300 cursor-pointer"
+                className=" bg-[#CCAC86] p-2 text-black  border border-white py-2 px-6 rounded-lg hover:bg-[#B89A7C] hover:text-black transition duration-300 cursor-pointer"
               >
                 Envoyez
               </button>
+              {/* Display response message */}
+              {responseMessage && (
+                <div
+                  className={`p-3 rounded-md text-center ${
+                    responseMessage.includes("Erreur")
+                      ? "py-0.5 px-6   text-red-700"
+                      : "py-0.5 px-6  text-green-700"
+                  }`}
+                >
+                  {responseMessage}
+                </div>
+              )}
             </form>
           </div>
         </div>

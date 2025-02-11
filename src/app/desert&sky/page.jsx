@@ -5,7 +5,7 @@ export default function DesertAndSky() {
   return (
     <>
       <div className="h-screen bg-[url(/desert&ciel.jpg)] bg-fixed bg-cover flex flex-col justify-center items-center border border-gray-500   gap-8">
-      <div className="absolute inset-0  from-transparent to-black opacity-25"></div>
+      <div className="absolute inset-0"></div>
       
         <div className="w-full">
         <Navbar/>

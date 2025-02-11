@@ -43,33 +43,16 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios
-        .get("http://localhost:3001/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-    
-          dispatch(login({ token, user: response.data }));
-        })
-        .catch((err) => {
-          console.error("Error fetching user data:", err);
-        });
-    }
-  }, [dispatch]);
+  
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white border border-black rounded-lg shadow-sm p-6 max-w-[400px] w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Se connecter</h2>
+    <div className="flex justify-center items-center m-10 ">
+      <div className=" border border-white rounded-lg shadow-sm p-6 max-w-[400px] w-full">
+        <h2 className="text-2xl font-bold text-center text-[#CCAC86]  mb-6">Se connecter</h2>
         <form onSubmit={submit}>
           {/* Email Input */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-white  mb-2">
               Adresse email
             </label>
             <input
@@ -78,7 +61,7 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-2 border border-black rounded-md "
+              className="w-full p-2 border bg-[#1E1E1E] border-gray-500 rounded-md "
               placeholder="Entrez votre email"
               required
             />
@@ -86,7 +69,7 @@ const Login = () => {
 
           {/* Password Input */}
           <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
               Mot de passe
             </label>
             <input
@@ -95,7 +78,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-2 border border-black rounded-md"
+              className="w-full p-2 border border-gray-500 bg-[#1E1E1E] rounded-md"
               placeholder="Entrez votre mot de passe"
               required
             />
@@ -104,7 +87,7 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-black text-white p-2 rounded-md font-medium hover:bg-[#F25B3F] transition-colors"
+            className="w-full mb-10 bg-[#CCAC86]  border-white border text-black p-2 rounded-md font-medium hover:bg-[#B89A7C] transition-colors"
           >
             Se connecter
           </button>
@@ -117,20 +100,6 @@ const Login = () => {
           </div>
         )}
 
-        {/* Links */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Vous n'avez pas de compte ?{" "}
-            <button className="text-black hover:text-[#F25B3F] hover:underline">
-              Créez-en un ici
-            </button>
-          </p>
-          <p className="mt-2 text-sm text-gray-600">
-            <button className="text-black hover:text-[#F25B3F] hover:underline">
-              Mot de passe oublié ?
-            </button>
-          </p>
-        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
@@ -13,12 +14,10 @@ export default function Footer() {
           </h1>
 
           <div className="mb-6">
-            <a href="#" className="text-gray-300 hover:text-white mx-3">
-              Twitter
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white mx-3">
-              Facebook
-            </a>
+           
+            <Link href="https://www.facebook.com/djamel.ramdani.9250" className="text-gray-300 hover:text-white mx-3">
+              Facebook |
+            </Link>
             <a href="#" className="text-gray-300 hover:text-white mx-3">
               Instagram
             </a>
