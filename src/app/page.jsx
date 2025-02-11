@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 
 export default function Home() {
   const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div), {
-    ssr: false, // Disable SSR for this component
+    ssr: false, 
   });
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },

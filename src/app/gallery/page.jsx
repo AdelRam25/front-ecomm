@@ -1,16 +1,16 @@
 'use client'
-import { FaEdit } from "react-icons/fa"; // Import the edit icon
+import { FaEdit } from "react-icons/fa"; 
 import { useState ,useEffect} from "react";
 import { useSelector } from "react-redux";
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import Link from "next/link";
-import EditPhotoForm from "@/components/EditPhotoForm"
+
 
 export default function Gallerie() {
   
   const [photos, setPhotos] = useState([]);
-  const [editingPhoto, setEditingPhoto] = useState(null); // Track the photo being edited
+  const [editingPhoto, setEditingPhoto] = useState(null);
   const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export default function Contact() {
 
       if (response.status === 200) {
         setResponseMessage("Message envoyé avec succès !");
-        setFormData({ nom: "", prenom: "", message: "", email: "" }); // Clear form
+        setFormData({ nom: "", prenom: "", message: "", email: "" }); 
       } else {
         setResponseMessage(
           `Erreur: ${response.data.message || "Veuillez réessayer."}`
