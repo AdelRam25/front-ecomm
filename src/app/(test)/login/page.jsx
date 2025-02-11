@@ -10,7 +10,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState('');
   const router = useRouter();
-  const dispatch = useDispatch();  // dispatch
+  const dispatch = useDispatch(); 
 
   // Handle input change
   const handleChange = (e) => {
