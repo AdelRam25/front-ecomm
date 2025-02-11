@@ -109,12 +109,7 @@ export default function Gallerie() {
                       Supprimer la photo
                     </button>
 
-                    <button
-                      onClick={() => handleEditPhoto(photo)}
-                      className="bg-blue-500 text-white px-6 py-3 rounded-md font-semibold tracking-widest hover:bg-blue-700 transition duration-300 flex items-center justify-center gap-2"
-                    >
-                      <FaEdit /> Modifier
-                    </button>
+                    
                   </div>
                 )}
               </div>
