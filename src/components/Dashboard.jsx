@@ -4,9 +4,9 @@ import { FaEye } from "react-icons/fa";
 import MessageModal from "./MessageModal"; 
 
 export default function Dashboard() {
-  const [data, setData] = useState([]); // store the data
-  const [selectedMessage, setSelectedMessage] = useState(null); // store the  message
-  const [isModalOpen, setIsModalOpen] = useState(false); // control modal visibility
+  const [data, setData] = useState([]); 
+  const [selectedMessage, setSelectedMessage] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
 

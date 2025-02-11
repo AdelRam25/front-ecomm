@@ -34,7 +34,7 @@ export default function Navbar() {
   }, [dispatch]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Supprimer le token 
+    localStorage.removeItem("token"); 
     dispatch(logout()); 
     router.push("/"); 
   };
