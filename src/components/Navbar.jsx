@@ -10,7 +10,8 @@ import { login, logout } from "@/features/user/userSlice";
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated } = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.user);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
 
   const isActive = (href) => pathname === href;
@@ -107,7 +108,7 @@ export default function Navbar() {
                 ></span>
               </Link>
             </li>
-            {isAuthenticated ? (
+            {isAuthenticated || user.type == "admin"? (
               <>
                 <li>
                   <Link

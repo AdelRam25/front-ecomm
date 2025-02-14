@@ -1,68 +1,93 @@
-"use client";
-import React, { useState } from "react";
-import axios from "axios";
+"use client"
 
-const AddPhoto = ({ onPhotoAdded }) => {
+import { useState } from "react"
+import axios from "axios"
+import Swal from "sweetalert2"
+import { useSelector } from "react-redux"
+
+const AddPhoto = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
     aperture: "",
     time: "",
-  });
-  const [photoFile, setPhotoFile] = useState(null); 
+  })
+  const [photoFile, setPhotoFile] = useState(null)
 
-  // Handle form field changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
-  // Handle file input change
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setPhotoFile(file); 
-  };
+    const file = e.target.files[0]
+    setPhotoFile(file)
+  }
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("category", formData.category);
-    formDataToSend.append("aperture", formData.aperture);
-    formDataToSend.append("time", formData.time);
+    const formDataToSend = new FormData()
+    formDataToSend.append("name", formData.name)
+    formDataToSend.append("description", formData.description)
+    formDataToSend.append("category", formData.category)
+    formDataToSend.append("aperture", formData.aperture)
+    formDataToSend.append("time", formData.time)
     if (photoFile) {
-      formDataToSend.append("photo", photoFile);
+      formDataToSend.append("photo", photoFile)
     }
 
     try {
       const response = await axios.post("http://localhost:3001/photos", formDataToSend, {
-      });
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
 
       if (response.status === 201) {
-        alert("Photo ajouté!");
+        // Success SweetAlert
+        await Swal.fire({
+          title: "Succès!",
+          text: "La photo a été ajoutée avec succès!",
+          icon: "success",
+          confirmButtonColor: "#CCAC86",
+          background : "black",
+          color : "white"
+        })
+
+        // Reset form
         setFormData({
           name: "",
           description: "",
           category: "",
           aperture: "",
           time: "",
-        });
-        setPhotoFile(null); // Clear the file input
-        onPhotoAdded(); 
+        })
+        setPhotoFile(null)
       }
     } catch (error) {
-      alert("Erreur");
-      console.error(error);
+      // Error SweetAlert
+      await Swal.fire({
+        title: "Erreur!",
+        text: "Une erreur est survenue lors de l'ajout de la photo.",
+        icon: "error",
+        confirmButtonColor: "#CCAC86",
+      })
+      console.error(error)
     }
-  };
+  }
+  const user = useSelector((state) => state.user.user);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+
+  if (!isAuthenticated || user.type !== 'admin') {
+    return <p className="text-white flex justify-center p-10">Access Denied!</p>;
+  }
+
 
   return (
     <div className="max-w-screen-md mx-auto p-6 m-10 bg-black border border-white rounded-lg shadow-lg mb-10">
@@ -71,7 +96,7 @@ const AddPhoto = ({ onPhotoAdded }) => {
         {/* Name */}
         <div>
           <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-2">
-           Nom
+            Nom
           </label>
           <input
             type="text"
@@ -84,8 +109,6 @@ const AddPhoto = ({ onPhotoAdded }) => {
             className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
           />
         </div>
-
-     
 
         {/* Category */}
         <div>
@@ -103,47 +126,47 @@ const AddPhoto = ({ onPhotoAdded }) => {
             className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
           />
         </div>
-       
-       <div className="grid grid-cols-2 gap-4 ">
+
+        <div className="grid grid-cols-2 gap-4 ">
           {/* Aperture */}
           <div>
-          <label htmlFor="aperture" className="block text-sm font-semibold text-gray-300 mb-2">
-            Aperture
-          </label>
-          <input
-            type="text"
-            id="aperture"
-            name="aperture"
-            value={formData.aperture}
-            onChange={handleChange}
-            placeholder="Entrer aperture "
-            required
-            className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
-          />
-        </div>
+            <label htmlFor="aperture" className="block text-sm font-semibold text-gray-300 mb-2">
+              Aperture
+            </label>
+            <input
+              type="text"
+              id="aperture"
+              name="aperture"
+              value={formData.aperture}
+              onChange={handleChange}
+              placeholder="Entrer aperture "
+              required
+              className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
+            />
+          </div>
 
-        {/* Time */}
-        <div>
-          <label htmlFor="time" className="block text-sm font-semibold text-gray-300 mb-2">
-            Temps
-          </label>
-          <input
-            type="text"
-            id="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            placeholder="Entrer temps"
-            required
-            className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
-          />
+          {/* Time */}
+          <div>
+            <label htmlFor="time" className="block text-sm font-semibold text-gray-300 mb-2">
+              Temps
+            </label>
+            <input
+              type="text"
+              id="time"
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              placeholder="Entrer temps"
+              required
+              className="w-full p-2 border border-gray-500 rounded-md bg-[#1E1E1E] text-white"
+            />
+          </div>
         </div>
-       </div>
 
         {/* PhotoUpload */}
         <div>
           <label htmlFor="photo" className="block text-sm font-semibold text-gray-300 mb-2">
-           Ajouter photo
+            Ajouter photo
           </label>
           <input
             type="file"
@@ -155,9 +178,8 @@ const AddPhoto = ({ onPhotoAdded }) => {
           />
         </div>
 
-       
-           {/* Description */}
-           <div>
+        {/* Description */}
+        <div>
           <label htmlFor="description" className="block text-sm font-semibold text-gray-300 mb-2">
             Description
           </label>
@@ -181,7 +203,8 @@ const AddPhoto = ({ onPhotoAdded }) => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default AddPhoto;
+export default AddPhoto
+

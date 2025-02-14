@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
 import { useDispatch } from 'react-redux'; 
@@ -34,7 +34,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
 
       // Dispatch the login action 
-      dispatch(login({ token: response.data.token, email: formData.email }));
+      dispatch(login(response.data.user));
 
       router.push("/");  // Redirect after login
 
@@ -61,7 +61,7 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-2 border bg-[#1E1E1E] border-gray-500 rounded-md "
+              className="w-full p-2 border border-gray-500 rounded-md "
               placeholder="Entrez votre email"
               required
             />
@@ -78,7 +78,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-500 bg-[#1E1E1E] rounded-md"
+              className="w-full p-2 border border-gray-500 rounded-md"
               placeholder="Entrez votre mot de passe"
               required
             />

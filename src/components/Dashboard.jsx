@@ -2,14 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEye } from "react-icons/fa";
 import MessageModal from "./MessageModal"; 
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
   const [data, setData] = useState([]); 
   const [selectedMessage, setSelectedMessage] = useState(null); 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const user = useSelector((state) => state.user.user);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+
+  // if (!isAuthenticated || user.type !== 'admin') {
+  //   return <p className="text-white flex justify-center p-10">Access Denied!</p>;
+  // }
 
   useEffect(() => {
-
     axios
       .get("http://localhost:3001/message")
       .then((response) => setData(response.data));
@@ -23,6 +31,7 @@ export default function Dashboard() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  console.log(user);
 
   return (
     <div className="max-w-screen-xl mx-auto p-6 bg-black text-white">
